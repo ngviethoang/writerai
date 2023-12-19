@@ -1,19 +1,32 @@
+import { topicTypes } from '@/const'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface BearState {
-  bears: number
-  increase: (by: number) => void
+interface AppState {
+  apiKey: string
+  setApiKey: (apiKey: string) => void
+  topicType: string
+  setTopicType: (topicType: string) => void
+  question: string
+  setQuestion: (question: string) => void
+  content: string
+  setContent: (content: string) => void
 }
 
-const useBearStore = create<BearState>()(
+export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
-      bears: 0,
-      increase: (by) => set((state) => ({ bears: state.bears + by })),
+      apiKey: '',
+      setApiKey: (apiKey: string) => set({ apiKey }),
+      topicType: topicTypes[0],
+      setTopicType: (topicType: string) => set({ topicType }),
+      question: '',
+      setQuestion: (question: string) => set({ question }),
+      content: '',
+      setContent: (content: string) => set({ content }),
     }),
     {
-      name: 'bear-storage',
+      name: 'app-storage',
     },
   ),
 )
